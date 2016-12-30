@@ -1,0 +1,98 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package trieprogram;
+import java.util.*;
+/**
+ *
+ * @author Rini
+ */
+public class TrieProgram {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static int numChldCount =0;
+    public static void main(String[] args) {
+        // TODO code application logic here
+        Scanner in = new Scanner(System.in);
+        Trie t = new Trie();
+        int n = in.nextInt();
+        for(int a0 = 0; a0 < n; a0++){
+            String op = in.next();
+            String contact = in.next();
+            if (op.equals("add")){
+               t.add(contact);
+            }
+            if (op.equals("find")){
+                numChldCount=0;
+               t.startsWith(contact);
+            } 
+        }
+    }
+    
+    public static class TrieNode{
+    Map<Character,TrieNode>children;
+    boolean isEnd;
+    public TrieNode(){
+        children=new HashMap<Character,TrieNode>();
+        isEnd=false;
+    }
+    }
+    
+    public static class Trie{
+        private TrieNode root;
+        public Trie(){
+            root = new TrieNode();
+        }
+        public void add(String contact){
+            TrieNode current = root;
+            for (int i=0;i<contact.length();i++){
+                char c= contact.charAt(i);
+                TrieNode node = current.children.get(c);
+                if(node==null){
+                    node=new TrieNode();
+                    current.children.put(c, node);
+                }
+                current=node;
+            }
+            current.isEnd=true;
+        }   
+        
+        public void startsWith(String partial){
+            TrieNode p = searchNode(partial);
+            if (p!=null){               
+                countChld(p);
+            }            
+         System.out.println(numChldCount);
+        }
+        
+        public void countChld(TrieNode current){
+            if(current.isEnd){
+            numChldCount+=1;
+            }
+            for(Map.Entry<Character,TrieNode> e: current.children.entrySet()){
+                    countChld(e.getValue());     
+            }
+        }
+        
+        public TrieNode searchNode(String partial){
+            TrieNode p =null;
+            Map<Character,TrieNode>children=root.children;
+            for (int i=0;i<partial.length();i++){
+                char c =partial.charAt(i);
+                if (children.containsKey(c)){
+                    p=children.get(c);
+                    children=p.children;
+                } else{
+                    return null;
+                }
+            }            
+            return p;
+        }
+    }
+}
+    
+    
