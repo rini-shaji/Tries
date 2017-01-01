@@ -14,7 +14,7 @@ public class TriePrefix {
        String badStr=new String();
        badStr=t.insert(words);   
         
-       if (!badStr.isEmpty()){
+       if (badStr!=null){
                 System.out.println("BAD SET");
                 System.out.println(badStr);
                 return;
