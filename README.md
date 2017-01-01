@@ -1,6 +1,6 @@
 # Tries
 Programs related to Tries data structure
-
+Problem 1: 
 Ref: https://www.hackerrank.com/challenges/ctci-contacts
 Problem Description from kackerrank:
 
@@ -42,3 +42,53 @@ Add a contact named hack.
 Add a contact named hackerrank.
 Find and print the number of contact names beginning with hac. There are currently two contact names in the application and both of them start with hac, so we print  on a new line.
 Find and print the number of contact names beginning with hak. There are currently two contact names in the application but neither of them start with hak, so we print  on a new line.
+---------------------------------------------------------------------------------------------------------------------------------------
+Problem 2:
+Ref: https://www.hackerrank.com/challenges/no-prefix-set
+Given N strings. Each string contains only lowercase letters from a-j (both inclusive). The set of N strings is said to be GOOD SET if no string is prefix of another string else, it is BAD SET. (If two strings are identical, they are considered prefixes of each other.)
+
+For example, aab, abcde, aabcd is BAD SET because aab is prefix of aabcd.
+
+Print GOOD SET if it satisfies the problem requirement. 
+Else, print BAD SET and the first string for which the condition fails.
+
+Input Format 
+First line contains N, the number of strings in the set. 
+Then next N lines follow, where ith  line contains ith string.
+
+Constraints 
+ 1<=N<=10^5
+ 1<=Length of the string<=60 
+
+Output Format 
+Output GOOD SET if the set is valid. 
+Else, output BAD SET followed by the first string for which the condition fails.
+
+Sample Input00
+
+7
+aab
+defgab
+abcde
+aabcde
+cedaaa
+bbbbbbbbbb
+jabjjjad
+
+Sample Output00
+
+BAD SET
+aabcde
+Sample Input01
+
+4
+aab
+aac
+aacghgh
+aabghgh
+Sample Output01
+
+BAD SET
+aacghgh
+Explanation 
+aab is prefix of aabcde. So set is BAD SET and it fails at string aabcde.
