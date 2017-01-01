@@ -1,9 +1,22 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package triearray;
 import java.util.*;
+/**
+ *
+ * @author Rini
+ */
+public class TrieArray {
 
-public class Solution {
-    public static int numChldCount=0;
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
-       Trie t= new Trie();
+        // TODO code application logic here
+        Trie t= new Trie();
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
         for(int a0 = 0; a0 < n; a0++){
@@ -13,16 +26,16 @@ public class Solution {
                 t.insert(contact);
             }
             if (op.equals("find")){
-                numChldCount=0;
-                t.startsWith(contact);
+                System.out.println(t.searchNode(contact));
             }
         }
     }
     public static class TrieNode{
         TrieNode[] arr;
-        boolean isEnd;
+        int wordsBelow;
         public TrieNode(){
            this.arr = new TrieNode[26];
+           this.wordsBelow=0;
         }
     }
     
@@ -36,6 +49,7 @@ public class Solution {
             TrieNode p =root;
             char c;
             int index;
+            p.wordsBelow++;
             for (int i=0; i< contact.length(); i++){
                 c = contact.charAt(i);
                 index =c-'a';
@@ -46,29 +60,11 @@ public class Solution {
                 }else{
                     p=p.arr[index];
                 }
-            }
-            p.isEnd=true;
+                  p.wordsBelow++;
+            }          
         }
         
-        public void startsWith(String partial){
-            TrieNode p = searchNode(partial);
-            if (p!=null){               
-                countChld(p);
-            }            
-         System.out.println(numChldCount);
-        }
-        
-        public void countChld(TrieNode current){
-            if(current.isEnd){
-            numChldCount+=1;
-            }
-            for(int i=0;i<26;i++){
-                if (current.arr[i]!=null){
-                    countChld(current.arr[i]);
-                }
-            }
-        }
-        public TrieNode searchNode(String partial){
+        public int searchNode(String partial){
             TrieNode p =root;
             char c;
             int index;
@@ -78,13 +74,10 @@ public class Solution {
                 if(p.arr[index]!=null){
                     p=p.arr[index];
                 }else{
-                    return null;
+                    return 0;
                 }
             }
-            if (p==root){
-                return null;
-            }
-            return p;
+            return p.wordsBelow;
         }
     }
     
